@@ -20,6 +20,7 @@ function EditableTodo({ todo, update, remove }) {
 
   /** Toggle if this is being edited */
   function toggleEdit() {
+    // use callback pattern instead to take account of previous state
     setIsEditing(!isEditing);
   }
 
@@ -35,7 +36,7 @@ function EditableTodo({ todo, update, remove }) {
   }
 
   return (
-    <div className="EditableTodo">
+    <div className="EditableTodo" >
       {isEditing === true
         ? <TodoForm initialFormData={todo} handleSave={handleSave} />
         : <div className="mb-3">

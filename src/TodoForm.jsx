@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
-
+// TODO: change priorities to integers
+// TODO: change name to defaultformdata
+// Good to be explicit here
 const EMPTY_FORM_DATA = {
   title: "",
   description: "",
-  priority: ""
+  priority: "1"
 };
 
 /** Form for adding.
@@ -19,12 +21,16 @@ function TodoForm({ initialFormData = EMPTY_FORM_DATA, handleSave }) {
   const [formData, setFormData] = useState(initialFormData);
 
   /** Update form input. */
+  // TODO: can change this to check key
+  // TODO: or second function to handle the string to number coercion
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData(fData => ({
       ...fData,
       [name]: value,
     }));
+    console.log('formData.priority ', formData.priority)
+
   }
 
   /** Call parent function and clear form. */

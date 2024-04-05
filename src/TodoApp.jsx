@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import TopTodo from "./TopTodo";
 import EditableTodoList from "./EditableTodoList";
 import TodoForm from "./TodoForm";
+import { v4 as uuid } from "uuid";
+
 
 /** App for managing a todo list.
  *
@@ -19,10 +21,8 @@ function TodoApp({ initialTodos = [] }) {
   const [todos, setTodos] = useState(initialTodos);
 
   /** add a new todo to list */
-  function create(newTodo) {
-    // FIXME: moved below line's logic (creating key) into Todo.jsx -- if
-    // you uncomment you need to change parameter for create back to "todo"
-    // const newTodo = { ...todo, id: uuid() };
+  function create(formData) {
+    const newTodo = { ...formData, id: uuid() };
 
     setTodos(todos => [...todos, newTodo]);
   }
@@ -32,6 +32,7 @@ function TodoApp({ initialTodos = [] }) {
     setTodos(todos => (
       todos.map(todo => (
         todo.id === updatedTodo.id
+        // ? updatedTodo will work just as well
           ? { ...todo, ...updatedTodo }
           : todo
       ))
