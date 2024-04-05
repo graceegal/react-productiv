@@ -20,8 +20,7 @@ function EditableTodo({ todo, update, remove }) {
 
   /** Toggle if this is being edited */
   function toggleEdit() {
-    // use callback pattern instead to take account of previous state
-    setIsEditing(!isEditing);
+    setIsEditing(isEditing => !isEditing);
   }
 
   /** Call remove fn passed to this. */

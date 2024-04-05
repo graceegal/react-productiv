@@ -14,8 +14,7 @@ function Todo({ todo }) {
   return (
     <div id={id} className="Todo">
       <div><b>{title}</b> <small>(priority: {priority})</small></div>
-      {/* TODO: remove period */}
-      <div><small>{description}.</small></div>
+      <div><small>{description}</small></div>
     </div>
   );
 }

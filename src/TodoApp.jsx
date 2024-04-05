@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 import TopTodo from "./TopTodo";
 import EditableTodoList from "./EditableTodoList";
 import TodoForm from "./TodoForm";
-import { v4 as uuid } from "uuid";
-
 
 /** App for managing a todo list.
  *
@@ -23,7 +22,6 @@ function TodoApp({ initialTodos = [] }) {
   /** add a new todo to list */
   function create(formData) {
     const newTodo = { ...formData, id: uuid() };
-
     setTodos(todos => [...todos, newTodo]);
   }
 
@@ -32,8 +30,7 @@ function TodoApp({ initialTodos = [] }) {
     setTodos(todos => (
       todos.map(todo => (
         todo.id === updatedTodo.id
-        // ? updatedTodo will work just as well
-          ? { ...todo, ...updatedTodo }
+          ? updatedTodo
           : todo
       ))
     ));
@@ -50,7 +47,7 @@ function TodoApp({ initialTodos = [] }) {
     <main className="TodoApp">
       <div className="row">
 
-        <div className="col-md-6">
+        <div className="col-md-6 TodoList">
           <h3>Todos</h3>
           {todos.length > 0
             ? <EditableTodoList todos={todos} update={update} remove={remove} />
@@ -58,13 +55,13 @@ function TodoApp({ initialTodos = [] }) {
         </div>
 
         <div className="col-md-6">
-          <section className="mb-4">
+          <section className="mb-4 TopTodo">
             <h3>Top Todo</h3>
             {todos.length > 0
               ? <TopTodo todos={todos} />
               : <span className="text-muted">No todos yet</span>}
           </section>
-          <section>
+          <section className="TodoForm">
             <h3 className="mb-3">Add Nü</h3>
             <TodoForm handleSave={create} />
           </section>
