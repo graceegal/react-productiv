@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
 
 import TopTodo from "./TopTodo";
 import EditableTodoList from "./EditableTodoList";
@@ -20,24 +19,30 @@ function TodoApp({ initialTodos = [] }) {
   const [todos, setTodos] = useState(initialTodos);
 
   /** add a new todo to list */
-  function create(todo) {
-    let newTodo = { ...todo, id: uuid() };
+  function create(newTodo) {
+    // FIXME: moved below line's logic (creating key) into Todo.jsx -- if
+    // you uncomment you need to change parameter for create back to "todo"
+    // const newTodo = { ...todo, id: uuid() };
+
     setTodos(todos => [...todos, newTodo]);
   }
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
-    // update state
-    // only update todo in todo state that has changed
-    //
-    console.log('updatedTodo', updatedTodo)
-    console.log('todos', todos)
-    setTodos(todos => [...todos, updatedTodo])
+    setTodos(todos => (
+      todos.map(todo => (
+        todo.id === updatedTodo.id
+          ? { ...todo, ...updatedTodo }
+          : todo
+      ))
+    ));
   }
 
   /** delete a todo by id */
   function remove(id) {
-
+    setTodos(todos => (
+      todos.filter(todo => todo.id !== id)
+    ));
   }
 
   return (
@@ -46,7 +51,7 @@ function TodoApp({ initialTodos = [] }) {
 
         <div className="col-md-6">
           {todos.length > 0 ?
-          <EditableTodoList todos={todos} update={update} remove={remove}/> :
+            <EditableTodoList todos={todos} update={update} remove={remove} /> :
             <span className="text-muted">You have no todos.</span>}
         </div>
 
